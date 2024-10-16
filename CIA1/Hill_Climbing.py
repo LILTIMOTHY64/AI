@@ -6,7 +6,7 @@ graph = {
     'A': {'B': 5, 'D': 1},  
     'B': {'C': 8, 'A': 6},
     'C': {'E': 9},
-    'D': {'G': 0},  
+    'D': {'G': 2},  
     'E': {},  
     'G': {}   
 }
@@ -22,17 +22,18 @@ heuristic = {
     'G': 0
 }
 
-# Generate a random solution/path from start to goal
-def random_solution(graph, start, goal):
-    points = list(graph.keys())  # All nodes in the graph
+# Generate an initial solution using a greedy approach
+def greedy_solution(graph, heuristic, start, goal):
     current_node = start
     solution = [current_node]
     
-    # Build a random path from start to goal
+    # Build the path by always selecting the neighbor with the lowest heuristic value
     while current_node != goal:
-        neighbors = list(graph[current_node].keys())
-        next_node = random.choice(neighbors)  # Pick a random neighbor
-        if next_node not in solution:
+        neighbors = graph[current_node]
+        if not neighbors:
+            break
+        next_node = min(neighbors, key=lambda n: heuristic[n])
+        if next_node not in solution:  # Avoid cycles
             solution.append(next_node)
         current_node = next_node
     
@@ -69,8 +70,8 @@ def best_neighbor(graph, heuristic, current_solution):
 
 # Hill Climbing Algorithm
 def hill_climbing(graph, heuristic, start, goal):
-    # Generate an initial random solution
-    current_solution = random_solution(graph, start, goal)
+    # Generate an initial greedy solution
+    current_solution = greedy_solution(graph, heuristic, start, goal)
     current_cost = path_cost(heuristic, current_solution)
     
     while True:
