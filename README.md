@@ -57,7 +57,7 @@
 - Key Features:
     - Explores the search space to find an optimal oracle.
 # CIA2
-## Gaming Adversarial Algorithms
+## Gaming Adversarial Algorithms implemented in Python
 ### 1. a-bPrune.py (Alpha-Beta Pruning)
 - Implementation of the Alpha-Beta Pruning algorithm, an optimization technique for the Minimax algorithm that reduces the number of nodes evaluated.
 - Key Features:
